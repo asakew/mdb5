@@ -1,0 +1,2 @@
+jQuery.fn.zebra=function(options){var options=jQuery.extend({bgEven:'',bgOdd:'#f2f2f2',},options);return this.each(function(){jQuery(this).find('tr:even').css('background-color',options.bgEven)
+jQuery(this).find('tr:odd').css('background-color',options.bgOdd).css('color',options.fontOdd)});}

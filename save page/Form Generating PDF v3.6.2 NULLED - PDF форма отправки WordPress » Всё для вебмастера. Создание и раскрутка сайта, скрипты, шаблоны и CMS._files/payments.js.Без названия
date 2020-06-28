@@ -1,0 +1,17 @@
+function PaymentsFormSubmit(nameForm,file,IdResult,img,imgId,DataUrl){var Url="";if(DataUrl!=null)Url=DataUrl;if(!IdResult)return;if(!img)img="/uploads/payments/status.gif";if(!file)return;var formSend=document.forms[nameForm];$("#"+imgId).html("<img src=\""+img+"\" border=\"0\" alt=\"Загрузка\" align=\"absmiddle\" />");for(var i=0;i<formSend.elements.length;i++)
+{var ElementForm=formSend.elements[i];switch(ElementForm.type)
+{case "checkbox":{if(ElementForm.checked==true)
+{Url+="&"+ElementForm.name+"="+ElementForm.value;}
+break}
+case "select-multiple":{for(var imultiple=0;imultiple<ElementForm.options.length;imultiple++)
+{if(ElementForm.options[imultiple].selected)
+{Url+="&"+ElementForm.name+"="+ElementForm.options[imultiple].value;}}
+break}
+case "radio":{var radioObj=formSend[ElementForm.name];for(var imultiple=0;imultiple<radioObj.length;imultiple++)
+{if(radioObj[imultiple].checked==true)
+{Url+="&"+ElementForm.name+"="+radioObj[imultiple].value;radio=true;}}
+break}
+case "hidden":{Url+="&"+ElementForm.name+"="+ElementForm.value;break}
+case "text":{Url+="&"+ElementForm.name+"="+ElementForm.value;break}
+default:{Url+="&"+ElementForm.name+"="+ElementForm.value;break}}}
+$.ajax({url:"/engine/ajax/payments/"+file,data:Url,success:function(data){$("#"+IdResult).html(data);if(imgId!=IdResult)$("#"+imgId).html("");},dataType:"html",type:"POST"});}
